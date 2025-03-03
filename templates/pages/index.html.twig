@@ -1,0 +1,12 @@
+{% extends 'base.html.twig' %}
+    {% block body %}
+        <h1><center>Hello From Tunisia</center></h1>
+        <h4> it's currently{{ 'now'|date('h:i A')}}</h4>
+        
+        <div class="text-center">
+            <img src="https://www.shutterstock.com/shutterstock/videos/1108853813/thumb/1.jpg?ip=x480" 
+                 alt="Description de l'image" 
+                 class="img-fluid" 
+                 style="max-width: 800px; width: 100%; height: auto;">
+        </div>        <a href="{{ path('about') }}" class="btn btn-primary">About us</a>
+    {% endblock %} 
