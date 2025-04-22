@@ -1,12 +1,253 @@
 {% extends 'base.html.twig' %}
-    {% block body %}
-        <h1><center>Hello From Tunisia</center></h1>
-        <h4> it's currently{{ 'now'|date('h:i A')}}</h4>
-        
-        <div class="text-center">
-            <img src="https://www.shutterstock.com/shutterstock/videos/1108853813/thumb/1.jpg?ip=x480" 
-                 alt="Description de l'image" 
-                 class="img-fluid" 
-                 style="max-width: 800px; width: 100%; height: auto;">
-        </div>        <a href="{{ path('about') }}" class="btn btn-primary">About us</a>
-    {% endblock %} 
+
+{% block title %}E-Shop Mode - Vêtements & Accessoires{% endblock %}
+
+{% block body %}
+<div class="container-fluid px-0">
+    <!-- Mega Carousel -->
+    <div id="mainCarousel" class="carousel slide" data-bs-ride="carousel">
+        <div class="carousel-inner">
+            {% for slide in [
+                {title: "Collection Printemps 2023", subtitle: "Découvrez nos nouveautés", image: "https://images.unsplash.com/photo-1469334031218-e382a71b716b?ixlib=rb-4.0.3&auto=format&fit=crop&w=1350&q=80"},
+                {title: "Soldes d'Été", subtitle: "Jusqu'à -50% sur une sélection", image: "https://images.unsplash.com/photo-1483985988355-763728e1935b?ixlib=rb-4.0.3&auto=format&fit=crop&w=1350&q=80"},
+                {title: "Nouveaux Arrivages", subtitle: "Livraison express disponible", image: "https://images.unsplash.com/photo-1542060748-10c28b62716f?ixlib=rb-4.0.3&auto=format&fit=crop&w=1350&q=80"}
+            ] %}
+            <div class="carousel-item {{ loop.first ? 'active' : '' }}">
+                <img src="{{ slide.image }}" class="d-block w-100" style="height: 600px; object-fit: cover;" alt="{{ slide.title }}">
+                <div class="carousel-caption d-none d-md-block bg-dark bg-opacity-50 p-4 rounded">
+                    <h2 class="display-4">{{ slide.title }}</h2>
+                    <p class="fs-4">{{ slide.subtitle }}</p>
+                    <a href="#" class="btn btn-lg btn-primary">Voir la collection</a>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+        <button class="carousel-control-prev" type="button" data-bs-target="#mainCarousel" data-bs-slide="prev">
+            <span class="carousel-control-prev-icon"></span>
+        </button>
+        <button class="carousel-control-next" type="button" data-bs-target="#mainCarousel" data-bs-slide="next">
+            <span class="carousel-control-next-icon"></span>
+        </button>
+    </div>
+
+    <!-- Catégories en Grid -->
+    <section class="container py-5">
+        <h2 class="text-center mb-5 display-5">Nos Collections</h2>
+        <div class="row g-4">
+            {% for category in [
+                {name: 'Robes de Soirée', image: 'https://images.unsplash.com/photo-1591047139829-d91aecb6caea?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80', count: 42},
+                {name: 'Talons Hauts', image: 'https://images.unsplash.com/photo-1543163521-1bf539c55dd2?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80', count: 36},
+                {name: 'Chemises Homme', image: 'https://images.unsplash.com/photo-1598033129183-c4f50c736f10?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80', count: 28},
+                {name: 'Pulls & Gilets', image: 'https://images.unsplash.com/photo-1551232864-3f0890e580d9?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80', count: 31},
+                {name: 'Accessoires', image: 'https://images.unsplash.com/photo-1591348122449-02525d70379b?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80', count: 19},
+                {name: 'Collections Spéciales', image: 'https://images.unsplash.com/photo-1542272604-787c3835535d?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80', count: 15}
+            ] %}
+            <div class="col-lg-4 col-md-6">
+                <div class="card category-card h-100 overflow-hidden border-0 shadow-sm">
+                    <img src="{{ category.image }}" class="card-img-top" style="height: 300px; object-fit: cover;" alt="{{ category.name }}">
+                    <div class="card-img-overlay d-flex flex-column justify-content-end bg-dark-gradient">
+                        <h3 class="text-white">{{ category.name }}</h3>
+                        <p class="text-white-50">{{ category.count }} articles</p>
+                        <a href="#" class="stretched-link"></a>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </section>
+
+    <!-- Produits Vedettes -->
+    <section class="bg-light py-5">
+        <div class="container">
+            <div class="d-flex justify-content-between align-items-center mb-5">
+                <h2 class="display-5 mb-0">Nos Best-Sellers</h2>
+                <a href="#" class="btn btn-outline-primary">Voir tout</a>
+            </div>
+            
+            <div class="row g-4">
+                {% for product in [
+                    {id: 1, name: 'Robe Longue Soirée', price: 189.99, old_price: 249.99, image: 'https://images.unsplash.com/photo-1591047139829-d91aecb6caea?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80', colors: ['#ff0000', '#000000', '#ffffff'], sizes: ['S', 'M', 'L']},
+                    {id: 2, name: 'Talons Louboutin', price: 399.99, old_price: 499.99, image: 'https://images.unsplash.com/photo-1543163521-1bf539c55dd2?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80', colors: ['#ff0000', '#000000'], sizes: ['36', '37', '38']},
+                    {id: 3, name: 'Chemise Slim Fit', price: 79.99, old_price: null, image: 'https://images.unsplash.com/photo-1598033129183-c4f50c736f10?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80', colors: ['#0000ff', '#ffffff'], sizes: ['M', 'L', 'XL']},
+                    {id: 4, name: 'Pull en Cachemire', price: 129.99, old_price: 159.99, image: 'https://images.unsplash.com/photo-1551232864-3f0890e580d9?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80', colors: ['#654321', '#ffffff'], sizes: ['S', 'M', 'L']},
+                    {id: 5, name: 'Sac à Main Luxe', price: 229.99, old_price: null, image: 'https://images.unsplash.com/photo-1591348122449-02525d70379b?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80', colors: ['#000000', '#654321'], sizes: ['Unique']},
+                    {id: 6, name: 'Ensemble 2 Pièces', price: 159.99, old_price: 199.99, image: 'https://images.unsplash.com/photo-1542272604-787c3835535d?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80', colors: ['#ff00ff', '#000000'], sizes: ['XS', 'S', 'M']},
+                    {id: 7, name: 'Blazer Élégant', price: 179.99, old_price: 229.99, image: 'https://images.unsplash.com/photo-1520367445093-50dc08a59d9d?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80', colors: ['#000000', '#808080'], sizes: ['M', 'L', 'XL']},
+                    {id: 8, name: 'Chaussures à Talons', price: 149.99, old_price: 189.99, image: 'https://images.unsplash.com/photo-1549298916-b41d501d3772?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80', colors: ['#000000', '#ffffff'], sizes: ['36', '37', '38']}
+                ] %}
+                <div class="col-xl-3 col-lg-4 col-md-6">
+                    <div class="card product-card h-100 border-0 shadow-sm">
+                        <div class="position-relative">
+                            <img src="{{ product.image }}" class="card-img-top" style="height: 300px; object-fit: cover;" alt="{{ product.name }}">
+                            <div class="product-badges position-absolute top-0 start-0 p-2">
+                                {% if product.old_price %}
+                                <span class="badge bg-danger">-{{ ((product.old_price - product.price)/product.old_price*100)|round }}%</span>
+                                {% endif %}
+                                <span class="badge bg-success">Nouveau</span>
+                            </div>
+                            <div class="product-actions position-absolute top-0 end-0 p-2">
+                                <button class="btn btn-sm btn-light rounded-circle mb-2">
+                                    <i class="bi bi-heart"></i>
+                                </button>
+                                <button class="btn btn-sm btn-light rounded-circle">
+                                    <i class="bi bi-eye"></i>
+                                </button>
+                            </div>
+                        </div>
+                        <div class="card-body">
+                            <h5 class="card-title">{{ product.name }}</h5>
+                            
+                            <div class="product-colors mb-2">
+                                {% for color in product.colors %}
+                                <span class="color-dot" style="background-color: {{ color }}"></span>
+                                {% endfor %}
+                            </div>
+                            
+                            <div class="d-flex justify-content-between align-items-center mb-3">
+                                <div class="product-price">
+                                    <span class="h5 text-primary">{{ product.price|number_format(2) }} €</span>
+                                    {% if product.old_price %}
+                                    <del class="text-muted small ms-2">{{ product.old_price|number_format(2) }} €</del>
+                                    {% endif %}
+                                </div>
+                                <div class="product-sizes">
+                                    {% for size in product.sizes %}
+                                    <span class="badge bg-light text-dark border">{{ size }}</span>
+                                    {% endfor %}
+                                </div>
+                            </div>
+                            
+                            <form action="{{ path('cart_add', {id: product.id}) }}" method="post" class="d-grid gap-2">
+                                <button type="submit" class="btn btn-primary">
+                                    <i class="bi bi-cart-plus"></i> Ajouter au panier
+                                </button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+    </section>
+
+    <!-- Galerie d'Inspiration -->
+    <section class="container py-5">
+        <h2 class="text-center mb-5 display-5">Inspiration Mode</h2>
+        <div class="row g-3">
+            {% for image in [
+                'https://images.unsplash.com/photo-1483985988355-763728e1935b?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80',
+                'https://images.unsplash.com/photo-1542272604-787c3835535d?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80',
+                'https://images.unsplash.com/photo-1520367445093-50dc08a59d9d?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80',
+                'https://images.unsplash.com/photo-1551232864-3f0890e580d9?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80',
+                'https://images.unsplash.com/photo-1542060748-10c28b62716f?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80',
+                'https://images.unsplash.com/photo-1469334031218-e382a71b716b?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80',
+                'https://images.unsplash.com/photo-1591047139829-d91aecb6caea?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80',
+                'https://images.unsplash.com/photo-1543163521-1bf539c55dd2?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80'
+            ] %}
+            <div class="col-lg-3 col-md-4 col-6">
+                <a href="#" class="d-block gallery-item overflow-hidden rounded">
+                    <img src="{{ image }}" class="img-fluid w-100" style="height: 250px; object-fit: cover;" alt="Inspiration mode">
+                    <div class="gallery-overlay">
+                        <i class="bi bi-search"></i>
+                    </div>
+                </a>
+            </div>
+            {% endfor %}
+        </div>
+    </section>
+
+    <!-- Newsletter -->
+    <section class="bg-dark text-white py-5">
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-lg-8 text-center">
+                    <h2 class="display-5 mb-3">Abonnez-vous à notre newsletter</h2>
+                    <p class="lead mb-4">Recevez en avant-première nos nouvelles collections et offres exclusives</p>
+                    <form class="row g-2 justify-content-center">
+                        <div class="col-md-8">
+                            <input type="email" class="form-control form-control-lg" placeholder="Votre adresse email" required>
+                        </div>
+                        <div class="col-md-2">
+                            <button type="submit" class="btn btn-primary btn-lg w-100">S'abonner</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+</div>
+{% endblock %}
+
+{% block stylesheets %}
+<style>
+    .bg-dark-gradient {
+        background: linear-gradient(to top, rgba(0,0,0,0.8) 0%, rgba(0,0,0,0) 100%);
+    }
+    
+    .category-card {
+        transition: all 0.3s ease;
+    }
+    .category-card:hover {
+        transform: translateY(-10px);
+        box-shadow: 0 15px 30px rgba(0,0,0,0.1);
+    }
+    
+    .product-card {
+        transition: all 0.3s ease;
+    }
+    .product-card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+    }
+    
+    .product-badges .badge {
+        font-size: 0.75rem;
+        margin-right: 0.25rem;
+    }
+    
+    .product-actions .btn {
+        width: 32px;
+        height: 32px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+    
+    .color-dot {
+        display: inline-block;
+        width: 16px;
+        height: 16px;
+        border-radius: 50%;
+        margin-right: 5px;
+        border: 1px solid #dee2e6;
+    }
+    
+    .gallery-item {
+        position: relative;
+        overflow: hidden;
+    }
+    
+    .gallery-overlay {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(0,0,0,0.5);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        opacity: 0;
+        transition: opacity 0.3s ease;
+    }
+    
+    .gallery-overlay i {
+        color: white;
+        font-size: 2rem;
+    }
+    
+    .gallery-item:hover .gallery-overlay {
+        opacity: 1;
+    }
+</style>
+{% endblock %}
